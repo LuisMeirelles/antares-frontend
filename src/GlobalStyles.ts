@@ -37,11 +37,14 @@ const GlobalStyles = createGlobalStyle`
         min-height: 100vh;
     }
 
+    body {
+        background-color: var(--color-background);
+    }
+
     #root {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--color-primary);
     }
 
     body,

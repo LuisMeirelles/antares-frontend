@@ -1,37 +1,50 @@
 import React from 'react';
 
 import {
-    Container,
+    PageLanding,
+    PageLandingContent,
     LogoContainer,
     Logo,
     Description,
     HeroImage,
     ButtonsContainer,
     Button,
+    ButtonIcon,
     TotalSongs
 } from './styles';
 
-import heroImage from '../../assets/img/hero-image.jpg';
+import heroImage from '../../assets/img/hero-image.svg';
+import loginIcon from '../../assets/img/login-icon.svg';
+import signUpIcon from '../../assets/img/sign-up-icon.svg';
 
 const Landing: React.FC = () => {
     return (
-        <Container>
-            <LogoContainer>
-                <Logo>Antares</Logo>
-                <Description>Plataforma para interação com a banda Antares</Description>
-            </LogoContainer>
+        <PageLanding>
+            <PageLandingContent>
+                <LogoContainer>
+                    <Logo>Antares</Logo>
+                    <Description>Plataforma para interação com a banda Antares</Description>
+                </LogoContainer>
 
-            <HeroImage src={heroImage} />
+                <HeroImage src={heroImage} />
 
-            <ButtonsContainer>
-                <Button href="#" login>Fazer Login</Button>
-                <Button href="#" signin>Cadastrar</Button>
-            </ButtonsContainer>
+                <ButtonsContainer>
+                    <Button to='/login' primary>
+                        <ButtonIcon src={loginIcon} alt="Ícone de Login"/>
+                        Fazer Login
+                    </Button>
 
-            <TotalSongs>
-                Total de N músicas já recomendadas.
-            </TotalSongs>
-        </Container>
+                    <Button to='/signup' secondary>
+                        <ButtonIcon src={signUpIcon} alt="Ícone de Cadastro"/>
+                        Cadastrar
+                    </Button>
+                </ButtonsContainer>
+
+                <TotalSongs>
+                    Total de N músicas já recomendadas.
+                </TotalSongs>
+            </PageLandingContent>
+        </PageLanding>
     );
 }
 

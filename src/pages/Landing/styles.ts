@@ -1,16 +1,25 @@
 import styled from 'styled-components';
-
-import { Container as BSContainer } from 'reactstrap';
+import { Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
-    login?: boolean;
-    signin?: boolean;
+    primary?: boolean;
+    secondary?: boolean;
 }
 
-export const Container = styled(BSContainer)`
+export const PageLanding = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-in-primary);
+    background-color: var(--color-primary);
+`;
+
+export const PageLandingContent = styled(Container)`
     width: 90vw;
     max-width: 700px;
-    color: var(--color-text-in-primary);
 
     @media (min-width: 1100px) {
         & {
@@ -80,17 +89,18 @@ export const ButtonsContainer = styled.div`
     }
 `;
 
-export const Button = styled.a<ButtonProps>`
+export const Button = styled(Link)<ButtonProps>`
     width: 18rem;
     height: 3.24rem;
     border-radius:0.48rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
     color: var(--color-button-text);
     transition: all 0.2s;
 
-    background-color: ${({login, signin}) => (login && 'var(--color-primary-lighter)') || (signin && 'var(--color-secondary)')};
+    background-color: ${({primary, secondary}) => (primary && 'var(--color-primary-lighter)') || (secondary && 'var(--color-secondary)')};
 
     & {
         text-decoration: none !important;
@@ -101,7 +111,7 @@ export const Button = styled.a<ButtonProps>`
     }
 
     &:hover {
-        background-color: ${({login, signin}) => (login && 'var(--color-primary-light)') || (signin && 'var(--color-secondary-dark)')};
+        background-color: ${({primary, secondary}) => (primary && 'var(--color-primary-light)') || (secondary && 'var(--color-secondary-dark)')};
         color: var(--color-button-text);
     }
 
@@ -109,6 +119,11 @@ export const Button = styled.a<ButtonProps>`
         font-size: 1.44rem;
         height: 4.44rem;
     }
+`;
+
+export const ButtonIcon = styled.img`
+    width: 1.8rem;
+    margin-right: 1.08rem;
 `;
 
 export const TotalSongs = styled.span`
@@ -119,6 +134,5 @@ export const TotalSongs = styled.span`
 
     @media (min-width: 1100px) {
         grid-area: total;
-        justify-self: end;
     }
 `;
