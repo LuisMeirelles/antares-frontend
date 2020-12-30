@@ -1,6 +1,15 @@
 import React from 'react';
+import GlobalStyles from './GlobalStyles';
 
-const App:React.FC = () =>
-    <h1>TESTE</h1>
+import Landing from './pages/Landing';
+
+const App: React.FC = () => {
+    return (
+        <>
+            <Landing />
+            <GlobalStyles />
+        </>
+    );
+}
 
 export default App;
