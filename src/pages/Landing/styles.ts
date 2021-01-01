@@ -9,7 +9,7 @@ interface ButtonProps {
 
 export const PageLanding = styled.div`
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,12 +18,8 @@ export const PageLanding = styled.div`
 `;
 
 export const PageLandingContent = styled(Container)`
-    width: 90vw;
-    max-width: 700px;
-
     @media (min-width: 1100px) {
         & {
-            max-width: 1100px;
             display: grid;
             grid-template-rows: 350px 1fr;
             grid-template-columns: 2fr 1fr 1fr;
