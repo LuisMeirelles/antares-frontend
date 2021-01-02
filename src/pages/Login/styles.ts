@@ -104,6 +104,10 @@ export const FieldsetTitle = styled.legend`
 export const InputBlock = styled.div`
     position: relative;
 
+    & + & {
+        margin-top: 0.84rem;
+    }
+
     &::after {
         width: 0;
         height: 3px;
@@ -113,12 +117,12 @@ export const InputBlock = styled.div`
         left: 0.96rem;
         right: 0.96rem;
         bottom: 0;
-        transition: all 0.2s linear;
+        transition: all 0.2s;
     }
 
     &:focus-within::after {
         width: calc(100% - 1.92rem);
-        transition: all 0.2s linear;
+        transition: all 0.2s;
     }
 `;
 
@@ -184,7 +188,12 @@ export const LoginButton = styled.button`
     justify-content: center;
     text-decoration: none;
     margin-top: 1.92rem;
-    transition: all 0.2;
+    transition: all 0.2s;
+
+    &:hover,
+    &:focus {
+        background-color: var(--color-secondary-dark);
+    }
 
     @media (min-width: 1100px) {
         width: 12rem;
