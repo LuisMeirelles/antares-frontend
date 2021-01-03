@@ -2,71 +2,36 @@ import React from 'react';
 
 import {
     Container,
-    PageHeader,
-    TopBarContainer,
-    ReturnButton,
-    Logo,
-    HeaderContent,
-    HeaderTitle,
-    Main,
-    Fieldset,
-    FieldsetTitle,
-    InputBlock,
-    Label,
-    Input,
-    Footer,
-    WarningText,
-    WarningIcon,
-    LoginButton
+    Main
 } from './styles';
 
-import returnIcon from '../../assets/img/return-icon.svg';
-import warningIcon from '../../assets/img/warning-icon.svg';
+import PageHeader from '../../components/PageHeader';
+import Form from '../../components/Form';
+import Fieldset from '../../components/Fieldset';
+import InputBlock from '../../components/InputBlock';
 
 const Login: React.FC = () => {
     return (
         <Container>
-            <PageHeader>
-                <TopBarContainer>
-                    <ReturnButton to='/'>
-                        <img src={returnIcon} alt="Voltar"/>
-                    </ReturnButton>
-
-                    <Logo>Antares</Logo>
-                </TopBarContainer>
-
-                <HeaderContent>
-                    <HeaderTitle>Preencha os campos abaixo para fazer login.</HeaderTitle>
-                </HeaderContent>
-            </PageHeader>
+            <PageHeader
+                title='Preencha os campos abaixo para fazer login.'
+            />
 
             <Main>
-                <form>
-                    <Fieldset>
-                        <FieldsetTitle>Login</FieldsetTitle>
+                <Form buttonText='Fazer Login'>
+                    <Fieldset title='Login'>
+                        <InputBlock
+                            label='E-mail ou Nome de Usuário'
+                            inputId='user'
+                        />
 
-                        <InputBlock>
-                            <Label>E-mail ou Nome de Usuário</Label>
-                            <Input type='text' id='user' />
-                        </InputBlock>
-
-                        <InputBlock>
-                            <Label>Senha</Label>
-                            <Input type='password' id='pass' />
-                        </InputBlock>
+                        <InputBlock
+                            label='Senha'
+                            type='password'
+                            inputId='pass'
+                        />
                     </Fieldset>
-
-                    <Footer>
-                        <WarningText>
-                            <WarningIcon src={warningIcon} alt='ícone de aviso importante' />
-                            Aviso:
-                            <br />
-                            Por favor, preencha todos os dados!
-                        </WarningText>
-
-                        <LoginButton type='submit'>Fazer Login</LoginButton>
-                    </Footer>
-                </form>
+                </Form>
             </Main>
         </Container>
     );

@@ -2,83 +2,48 @@ import React from 'react';
 
 import {
     Container,
-    PageHeader,
-    TopBarContainer,
-    ReturnButton,
-    Logo,
-    HeaderContent,
-    HeaderTitle,
-    HeaderDescription,
-    Main,
-    Fieldset,
-    FieldsetTitle,
-    InputBlock,
-    Label,
-    Input,
-    Footer,
-    WarningText,
-    WarningIcon,
-    LoginButton
+    Main
 } from './styles';
 
-import returnIcon from '../../assets/img/return-icon.svg';
-import warningIcon from '../../assets/img/warning-icon.svg';
+import PageHeader from '../../components/PageHeader';
+import Form from '../../components/Form';
+import Fieldset from '../../components/Fieldset';
+import InputBlock from '../../components/InputBlock';
 
 const SignUp: React.FC = () => {
     return (
         <Container>
-            <PageHeader>
-                <TopBarContainer>
-                    <ReturnButton to='/'>
-                        <img src={returnIcon} alt="Voltar"/>
-                    </ReturnButton>
-
-                    <Logo>Antares</Logo>
-                </TopBarContainer>
-
-                <HeaderContent>
-                    <HeaderTitle>Nós da banda Antares ficamos agradecidos por você querer fazer parte das nossas decisões.</HeaderTitle>
-                    <HeaderDescription>Para participar das decisões da banda é só realizar o cadastro preenchendo os dados do formulário abaixo.</HeaderDescription>
-                </HeaderContent>
-            </PageHeader>
+            <PageHeader
+                title='Nós da banda Antares ficamos agradecidos por você querer fazer parte das nossas decisões.'
+                description='Para participar das decisões da banda é só realizar o cadastro preenchendo os dados do formulário abaixo.'
+            />
 
             <Main>
-                <form>
-                    <Fieldset>
-                        <FieldsetTitle>Cadastro</FieldsetTitle>
+                <Form buttonText='Cadastrar-se'>
+                    <Fieldset title='Cadastro'>
+                        <InputBlock
+                            label='E-mail'
+                            type='email'
+                            inputId='email'
+                        />
 
-                        <InputBlock>
-                            <Label>E-mail</Label>
-                            <Input type='email' id='email' />
-                        </InputBlock>
+                        <InputBlock
+                            label='Nome de Usuário'
+                            inputId='username'
+                        />
 
-                        <InputBlock>
-                            <Label>Nome de Usuário</Label>
-                            <Input type='text' id='username' />
-                        </InputBlock>
+                        <InputBlock
+                            label='Nome Real'
+                            inputId='name'
+                        />
 
-                        <InputBlock>
-                            <Label>Nome Real</Label>
-                            <Input type='text' id='name' />
-                        </InputBlock>
-
-                        <InputBlock>
-                            <Label>Senha</Label>
-                            <Input type='password' id='pass' />
-                        </InputBlock>
+                        <InputBlock
+                            label='Senha'
+                            type='password'
+                            inputId='pass'
+                        />
                     </Fieldset>
-
-                    <Footer>
-                        <WarningText>
-                            <WarningIcon src={warningIcon} alt='ícone de aviso importante' />
-                            Aviso:
-                            <br />
-                            Por favor, preencha todos os dados!
-                        </WarningText>
-
-                        <LoginButton type='submit'>Cadastrar-se</LoginButton>
-                    </Footer>
-                </form>
+                </Form>
             </Main>
         </Container>
     );
