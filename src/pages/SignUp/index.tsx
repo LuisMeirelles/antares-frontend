@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
     Container,
@@ -10,7 +11,32 @@ import Form from '../../components/Form';
 import Fieldset from '../../components/Fieldset';
 import InputBlock from '../../components/InputBlock';
 
+import api from '../../services/api';
+
 const SignUp: React.FC = () => {
+    const [signUpData, setSignUpData] = useState({
+        email: '',
+        username: '',
+        name: '',
+        password: ''
+    });
+
+    const history = useHistory();
+
+    async function handleSignUp(evt: FormEvent) {
+        evt.preventDefault();
+
+        try{
+            await api.post('/users', { ...signUpData });
+
+            history.push('/');
+        } catch (error) {
+            alert('Ocorreu um erro ao realizar o cadastro');
+
+            console.error(error);
+        }
+    }
+
     return (
         <Container>
             <PageHeader
@@ -19,28 +45,32 @@ const SignUp: React.FC = () => {
             />
 
             <Main>
-                <Form buttonText='Cadastrar-se'>
+                <Form buttonText='Cadastrar-se' onSubmit={handleSignUp}>
                     <Fieldset title='Cadastro'>
                         <InputBlock
                             label='E-mail'
                             type='email'
-                            inputId='email'
+                            value={signUpData.email}
+                            onChange={evt => setSignUpData({...signUpData, email: evt.target.value})}
                         />
 
                         <InputBlock
                             label='Nome de Usuário'
-                            inputId='username'
+                            value={signUpData.username}
+                            onChange={evt => setSignUpData({...signUpData, username: evt.target.value})}
                         />
 
                         <InputBlock
                             label='Nome Real'
-                            inputId='name'
+                            value={signUpData.name}
+                            onChange={evt => setSignUpData({...signUpData, name: evt.target.value})}
                         />
 
                         <InputBlock
                             label='Senha'
                             type='password'
-                            inputId='pass'
+                            value={signUpData.password}
+                            onChange={evt => setSignUpData({...signUpData, password: evt.target.value})}
                         />
                     </Fieldset>
                 </Form>

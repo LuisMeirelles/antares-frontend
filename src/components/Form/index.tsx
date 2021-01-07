@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormHTMLAttributes } from 'react';
 
 import {
     Footer,
@@ -9,7 +9,7 @@ import {
 
 import warningIcon from '../../assets/img/warning-icon.svg';
 
-interface FormProps {
+interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
     buttonText: string;
     noWarning?: boolean;
 }
@@ -22,8 +22,8 @@ const Form: React.FC<FormProps> = ({ noWarning, buttonText, children, ...props }
             <Footer noWarning={noWarning}>
                 {
                     !noWarning &&
-                        <WarningText>
-                            <WarningIcon src={warningIcon} alt='ícone de aviso importante' />
+                    <WarningText>
+                        <WarningIcon src={warningIcon} alt='ícone de aviso importante' />
                             Aviso:
                             <br />
                             Por favor, preencha todos os dados!
