@@ -14,8 +14,10 @@ interface InputBlockProps extends InputHTMLAttributes<HTMLInputElement> {
 const InputBlock: React.FC<InputBlockProps> = ({ label, type, ...props }) => {
     return (
         <Container>
-            <Label>{label}</Label>
-            <Input type={type || 'text'} {...props} />
+            <Label>
+                {label}
+                <Input type={type || 'text'} {...props} />
+            </Label>
         </Container>
     );
 }
