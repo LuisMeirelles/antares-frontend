@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface FooterProps {
-    noWarning?: boolean;
+    hasData: boolean;
 }
 
 export const Footer = styled.footer<FooterProps>`
@@ -10,11 +10,19 @@ export const Footer = styled.footer<FooterProps>`
     border-top: 1px solid var(--color-line-in-white);
     margin-top: 3.84rem;
 
+    & > button {
+        margin-top: ${({ hasData }) => hasData ? '1.92rem' : '0'};
+    }
+
     @media (min-width: 1100px) {
         padding: 2.4rem 3.84rem;
         display: flex;
         align-items: center;
-        justify-content: ${({ noWarning }) => noWarning ? 'center' : 'space-between'};
+        justify-content: ${({ hasData }) => hasData ? 'space-between' : 'center'};
+
+        & > button {
+            margin-top: 0;
+        }
     }
 `;
 
@@ -50,7 +58,6 @@ export const SubmitButton = styled.button`
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    margin-top: 1.92rem;
     transition: all 0.2s;
 
     &:hover,
@@ -60,7 +67,6 @@ export const SubmitButton = styled.button`
 
     @media (min-width: 1100px) {
         width: 12rem;
-        margin-top: 0;
         cursor: pointer;
     }
 `;

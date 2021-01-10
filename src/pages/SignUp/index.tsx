@@ -12,6 +12,7 @@ import Fieldset from '../../components/Fieldset';
 import InputBlock from '../../components/InputBlock';
 
 import api from '../../services/api';
+import { AxiosError } from 'axios';
 
 const SignUp: React.FC = () => {
     const [signUpData, setSignUpData] = useState({
@@ -21,20 +22,34 @@ const SignUp: React.FC = () => {
         password: ''
     });
 
+    const [responseMessage, setResponseMessage] = useState({
+        type: '',
+        message: ''
+    });
+
     const history = useHistory();
 
     async function handleSignUp(evt: FormEvent) {
         evt.preventDefault();
 
-        try{
-            await api.post('/users', { ...signUpData });
+        await api.post(
+            '/users',
+            { ...signUpData }
+        ).then(
+            () => history.push('/')
+        ).catch((error: AxiosError) => {
+            switch (error.response?.data.message) {
+                case 'unexpected error while creating new user':
+                    setResponseMessage({
+                        type: 'error',
+                        message: `Erro inesperado ao criar novo usuário.\nPor favor, contate o suporte provendo as seguintes informações: ${error.response.data.message.error}`
+                    });
 
-            history.push('/');
-        } catch (error) {
-            alert('Ocorreu um erro ao realizar o cadastro');
-
-            console.error(error);
+                    break;
+            }
         }
+
+        );
     }
 
     return (
@@ -45,7 +60,11 @@ const SignUp: React.FC = () => {
             />
 
             <Main>
-                <Form buttonText='Cadastrar-se' onSubmit={handleSignUp}>
+                <Form
+                    buttonText='Cadastrar-se'
+                    onSubmit={handleSignUp}
+                    footerMessage={responseMessage}
+                >
                     <Fieldset title='Cadastro'>
                         <InputBlock
                             label='E-mail'
