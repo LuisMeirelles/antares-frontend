@@ -12,7 +12,6 @@ import Fieldset from '../../components/Fieldset';
 import InputBlock from '../../components/InputBlock';
 
 import api from '../../services/api';
-import { AxiosError } from 'axios';
 
 const SignUp: React.FC = () => {
     const [signUpData, setSignUpData] = useState({
@@ -32,12 +31,14 @@ const SignUp: React.FC = () => {
     async function handleSignUp(evt: FormEvent) {
         evt.preventDefault();
 
-        await api.post(
-            '/users',
-            { ...signUpData }
-        ).then(
-            () => history.push('/')
-        ).catch((error: AxiosError) => {
+        try {
+            await api.post(
+                '/users',
+                signUpData
+            );
+
+            history.push('/');
+        } catch (error) {
             switch (error.response?.data.message) {
                 case 'unexpected error while creating new user':
                     setResponseMessage({
@@ -48,8 +49,6 @@ const SignUp: React.FC = () => {
                     break;
             }
         }
-
-        );
     }
 
     return (

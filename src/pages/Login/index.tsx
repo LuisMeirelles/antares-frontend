@@ -37,13 +37,14 @@ const Login: React.FC = () => {
     async function handleLogin(evt: FormEvent<HTMLFormElement>) {
         evt.preventDefault();
 
-        api.post(
-            '/auth',
-            loginData
-        ).then((response: AxiosResponse) => {
-            console.log('foi');
+        try {
+            await api.post(
+                '/auth',
+                loginData
+            )
+            
             history.push('/');
-        }).catch((error: AxiosError) => {
+        } catch (error) {
             switch (error.response?.data.message) {
                 case 'user not found':
                     setResponseMessage({
@@ -69,7 +70,7 @@ const Login: React.FC = () => {
 
                     break;
             }
-        });
+        }
     }
 
     function setData(evt: ChangeEvent<HTMLInputElement>) {
