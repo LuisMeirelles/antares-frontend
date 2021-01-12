@@ -41,7 +41,7 @@ const Login: React.FC = () => {
             '/auth',
             loginData
         ).then((response: AxiosResponse) => {
-            console.log(response.data);
+            console.log('foi');
             history.push('/');
         }).catch((error: AxiosError) => {
             switch (error.response?.data.message) {
