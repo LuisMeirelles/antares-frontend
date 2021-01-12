@@ -37,7 +37,7 @@ const Login: React.FC = () => {
     async function handleLogin(evt: FormEvent<HTMLFormElement>) {
         evt.preventDefault();
 
-        await api.post(
+        api.post(
             '/auth',
             loginData
         ).then((response: AxiosResponse) => {
