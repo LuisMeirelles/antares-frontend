@@ -3,10 +3,6 @@ import React, {
     FormEvent,
     ChangeEvent
 } from 'react';
-import {
-    AxiosResponse,
-    AxiosError
-} from 'axios';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -42,7 +38,7 @@ const Login: React.FC = () => {
                 '/auth',
                 loginData
             )
-            
+
             history.push('/');
         } catch (error) {
             switch (error.response?.data.message) {
