@@ -3,7 +3,7 @@ import React, {
     FormEvent,
     ChangeEvent
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import {
     Container,
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
         message: ''
     });
 
-    const history = useHistory();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     async function handleLogin(evt: FormEvent<HTMLFormElement>) {
         evt.preventDefault();
@@ -37,9 +37,9 @@ const Login: React.FC = () => {
             await api.post(
                 '/auth',
                 loginData
-            )
+            );
 
-            history.push('/');
+            setIsAuthenticated(true);
         } catch (error) {
             switch (error.response?.data.message) {
                 case 'user not found':
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
                     setResponseMessage({
                         type: 'warning',
                         message: 'Senha incorreta'
-                    })
+                    });
 
                     break;
 
@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                     setResponseMessage({
                         type: 'error',
                         message: `Erro inesperado ao autenticar o usuário.\nPor favor, contate o suporte provendo as seguintes informações: ${error.response.data.message.error}`
-                    })
+                    });
 
                     break;
             }
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
         setLoginData({
             ...loginData,
             [id]: value
-        })
+        });
     }
 
     return (
@@ -90,8 +90,8 @@ const Login: React.FC = () => {
             <Main>
                 <Form
                     buttonText='Fazer Login'
-                    onSubmit={handleLogin}
                     footerMessage={responseMessage}
+                    onSubmit={handleLogin}
                 >
                     <Fieldset title='Login'>
                         <InputBlock
@@ -111,8 +111,10 @@ const Login: React.FC = () => {
                     </Fieldset>
                 </Form>
             </Main>
+
+            {isAuthenticated && <Redirect to='/' />}
         </Container>
     );
-}
+};
 
 export default Login;

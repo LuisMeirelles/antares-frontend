@@ -1,5 +1,8 @@
-import React, { useState, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {
+    useState,
+    FormEvent
+} from 'react';
+import { Redirect } from 'react-router-dom';
 
 import {
     Container,
@@ -33,7 +36,7 @@ const SignUp: React.FC = () => {
         message: ''
     });
 
-    const history = useHistory();
+    const [isRegistered, setIsRegistered] = useState(false);
 
     async function handleSignUp(evt: FormEvent) {
         evt.preventDefault();
@@ -45,7 +48,7 @@ const SignUp: React.FC = () => {
                     signUpData
                 );
 
-                history.push('/');
+                setIsRegistered(true);
             } catch (error) {
                 switch (error.response?.data.message) {
                     case 'unexpected error while creating new user':
@@ -130,6 +133,8 @@ const SignUp: React.FC = () => {
                     </Fieldset>
                 </Form>
             </Main>
+
+            {isRegistered && <Redirect to='/' />}
         </Container>
     );
 };
