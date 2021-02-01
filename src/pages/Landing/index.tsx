@@ -9,8 +9,7 @@ import {
     HeroImage,
     ButtonsContainer,
     Button,
-    ButtonIcon,
-    TotalSongs
+    ButtonIcon
 } from './styles';
 
 import heroImage from '../../assets/img/hero-image.svg';
@@ -39,10 +38,6 @@ const Landing: React.FC = () => {
                         Cadastrar
                     </Button>
                 </ButtonsContainer>
-
-                <TotalSongs>
-                    Total de N músicas já recomendadas.
-                </TotalSongs>
             </PageLandingContent>
         </PageLanding>
     );

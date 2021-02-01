@@ -19,14 +19,12 @@ export const PageLanding = styled.div`
 
 export const PageLandingContent = styled(Container)`
     @media (min-width: 1100px) {
-        & {
-            display: grid;
-            grid-template-rows: 350px 1fr;
-            grid-template-columns: 2fr 1fr 1fr;
-            grid-template-areas:
-                "logo hero hero"
-                "buttons buttons total";
-        }
+        display: grid;
+        grid-template-rows: 350px 1fr;
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-areas:
+            "logo hero hero"
+            "buttons buttons total";
     }
 `;
 
@@ -55,11 +53,9 @@ export const Description = styled.h2`
     margin-top: 0.48rem;
 
     @media (min-width: 1100px) {
-        & {
-            text-align: left;
-            text-align: initial;
-            font-size: 1.92rem;
-        }
+        text-align: left;
+        text-align: initial;
+        font-size: 1.92rem;
     }
 `;
 
@@ -106,7 +102,8 @@ export const Button = styled(Link)<ButtonProps>`
         margin-right: 0.96rem;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: ${({primary, secondary}) => (primary && 'var(--color-primary-light)') || (secondary && 'var(--color-secondary-dark)')};
         color: var(--color-button-text);
     }
@@ -120,15 +117,4 @@ export const Button = styled(Link)<ButtonProps>`
 export const ButtonIcon = styled.img`
     width: 1.8rem;
     margin-right: 1.08rem;
-`;
-
-export const TotalSongs = styled.span`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.84rem;
-
-    @media (min-width: 1100px) {
-        grid-area: total;
-    }
 `;

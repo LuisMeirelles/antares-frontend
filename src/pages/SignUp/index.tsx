@@ -14,6 +14,11 @@ import InputBlock from '../../components/InputBlock';
 import api from '../../services/api';
 
 const SignUp: React.FC = () => {
+    interface Response {
+        type: 'success' | 'warning' | 'error' | '';
+        message: string;
+    }
+
     const [signUpData, setSignUpData] = useState({
         email: '',
         username: '',
@@ -21,7 +26,9 @@ const SignUp: React.FC = () => {
         password: ''
     });
 
-    const [responseMessage, setResponseMessage] = useState({
+    const [passwordConfirmed, setPasswordConfirmed] = useState('');
+
+    const [responseMessage, setResponseMessage] = useState<Response>({
         type: '',
         message: ''
     });
@@ -31,23 +38,46 @@ const SignUp: React.FC = () => {
     async function handleSignUp(evt: FormEvent) {
         evt.preventDefault();
 
-        try {
-            await api.post(
-                '/users',
-                signUpData
-            );
+        if (signUpData.password === passwordConfirmed) {
+            try {
+                await api.post(
+                    '/users',
+                    signUpData
+                );
 
-            history.push('/');
-        } catch (error) {
-            switch (error.response?.data.message) {
-                case 'unexpected error while creating new user':
-                    setResponseMessage({
-                        type: 'error',
-                        message: `Erro inesperado ao criar novo usuário.\nPor favor, contate o suporte provendo as seguintes informações: ${error.response.data.message.error}`
-                    });
+                history.push('/');
+            } catch (error) {
+                switch (error.response?.data.message) {
+                    case 'unexpected error while creating new user':
+                        setResponseMessage({
+                            type: 'error',
+                            message: `Erro inesperado ao criar novo usuário.\nPor favor, contate o suporte provendo as seguintes informações: ${error.response.data.message.error}`
+                        });
 
-                    break;
+                        break;
+
+                    case 'email already registered':
+                        setResponseMessage({
+                            type: 'warning',
+                            message: 'O email informado já está em uso'
+                        });
+
+                        break;
+
+                    case 'username already registered':
+                        setResponseMessage({
+                            type: 'warning',
+                            message: 'O nome de usuário informado já está em uso'
+                        });
+
+                        break;
+                }
             }
+        } else {
+            setResponseMessage({
+                type: 'warning',
+                message: 'As senhas não coincidem'
+            });
         }
     }
 
@@ -69,32 +99,39 @@ const SignUp: React.FC = () => {
                             label='E-mail'
                             type='email'
                             value={signUpData.email}
-                            onChange={evt => setSignUpData({...signUpData, email: evt.target.value})}
+                            onChange={evt => setSignUpData({ ...signUpData, email: evt.target.value })}
                         />
 
                         <InputBlock
                             label='Nome de Usuário'
                             value={signUpData.username}
-                            onChange={evt => setSignUpData({...signUpData, username: evt.target.value})}
+                            onChange={evt => setSignUpData({ ...signUpData, username: evt.target.value })}
                         />
 
                         <InputBlock
                             label='Nome Real'
                             value={signUpData.name}
-                            onChange={evt => setSignUpData({...signUpData, name: evt.target.value})}
+                            onChange={evt => setSignUpData({ ...signUpData, name: evt.target.value })}
                         />
 
                         <InputBlock
                             label='Senha'
                             type='password'
                             value={signUpData.password}
-                            onChange={evt => setSignUpData({...signUpData, password: evt.target.value})}
+                            onChange={evt => setSignUpData({ ...signUpData, password: evt.target.value })}
+                        />
+
+                        <InputBlock
+                            label='Confirmar Senha'
+                            type='password'
+                            value={passwordConfirmed}
+                            onChange={evt => setPasswordConfirmed(evt.target.value)}
                         />
                     </Fieldset>
                 </Form>
             </Main>
         </Container>
     );
-}
+};
 
 export default SignUp;
