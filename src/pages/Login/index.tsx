@@ -3,6 +3,7 @@ import React, {
     FormEvent,
     ChangeEvent
 } from 'react';
+
 import { Redirect } from 'react-router-dom';
 
 import {
@@ -35,7 +36,7 @@ const Login: React.FC = () => {
 
         try {
             await api.post(
-                '/auth',
+                '/users/auth',
                 loginData
             );
 

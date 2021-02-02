@@ -17,7 +17,7 @@ import InputBlock from '../../components/InputBlock';
 import api from '../../services/api';
 
 const SignUp: React.FC = () => {
-    interface Response {
+    interface ResponseMessage {
         type: 'success' | 'warning' | 'error' | '';
         message: string;
     }
@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
 
     const [passwordConfirmed, setPasswordConfirmed] = useState('');
 
-    const [responseMessage, setResponseMessage] = useState<Response>({
+    const [responseMessage, setResponseMessage] = useState<ResponseMessage>({
         type: '',
         message: ''
     });
